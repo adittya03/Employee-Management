@@ -1,0 +1,46 @@
+employees = {}
+
+def add_employee(employee_id, name, hourly_wage):
+    employees[employee_id] = {'name': name, 'hourly_wage': hourly_wage, 'hours_worked': 0}
+
+def record_hours_worked(employee_id, hours_worked):
+    if employee_id in employees:
+        employees[employee_id]['hours_worked'] += hours_worked
+
+def calculate_salary(employee_id):
+    if employee_id in employees:
+        data = employees[employee_id]
+        return data['hours_worked'] * data['hourly_wage']
+    else:
+        return 0
+
+def generate_payment_report():
+    print("Employee Payment Report:")
+    for employee_id, employee_data in employees.items():
+        salary = calculate_salary(employee_id)
+        print(f"Employee ID: {employee_id}, Name: {employee_data['name']}, Salary: {salary}")
+
+while True:
+    print("Employee Payment Management System")
+    print("1. Add Employee")
+    print("2. Record Hours Worked")
+    print("3. Generate Payment Report")
+    print("4. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        employee_id = input("Enter employee ID: ")
+        name = input("Enter employee name: ")
+        hourly_wage = float(input("Enter employee's hourly wage: "))
+        add_employee(employee_id, name, hourly_wage)
+    elif choice == "2":
+        employee_id = input("Enter employee ID: ")
+        hours_worked = float(input("Enter hours worked: "))
+        record_hours_worked(employee_id, hours_worked)
+    elif choice == "3":
+        generate_payment_report()
+    elif choice == "4":
+        break
+    else:
+        print("Invalid choice. Please try again.")
